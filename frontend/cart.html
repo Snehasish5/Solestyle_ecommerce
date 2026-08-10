@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoleStyle — Step Into Style</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 2rem;
+      margin-top: calc(var(--navbar-height) + 2rem);
+      padding-bottom: 5rem;
+    }
+
+    .cart-items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .cart-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand"><div class="nav-brand-logo">👟</div><span class="nav-brand-name">SoleStyle</span></a>
+      <div class="nav-search"><span class="nav-search-icon">🔍</span><input type="text" id="nav-search-input" class="nav-search-input" placeholder="Search shoes..."></div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="products.html?category=men" class="nav-link">Men</a>
+        <a href="products.html?category=women" class="nav-link">Women</a>
+        <a href="products.html?is_new_arrival=true" class="nav-link">New Arrivals</a>
+      </div>
+      <div class="nav-actions">
+        <a href="wishlist.html" class="nav-action-btn" title="Wishlist">❤️<span class="nav-badge" id="wishlist-badge" style="display:none">0</span></a>
+        <a href="cart.html" class="nav-action-btn" title="Cart">🛒<span class="nav-badge" id="cart-badge" style="display:none">0</span></a>
+        <div id="nav-user-area"></div>
+        <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="products.html" class="nav-link">Shop All</a>
+    <a href="wishlist.html" class="nav-link">❤️</a>
+    <a href="cart.html" class="nav-link">🛒</a>
+    <a href="orders.html" class="nav-link">Orders</a>
+  </div>
+
+  <div class="container">
+    <div class="page-header" style="padding-bottom:1rem">
+      <h1 style="font-family:'Outfit',sans-serif;font-weight:800">Your Shopping Cart</h1>
+      <p style="color:var(--text-muted)">Review your selected items before proceeding to payment</p>
+    </div>
+
+    <div class="cart-layout">
+      <!-- ITEMS -->
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+          <span id="items-count-label" style="font-weight:600;color:var(--text-secondary)">Cart Items</span>
+          <button class="btn btn-ghost btn-sm" id="clear-cart-btn" style="color:var(--error);border-color:rgba(239,68,68,0.3)">Clear Cart</button>
+        </div>
+
+        <div class="cart-items-list" id="cart-items-list">
+          <div class="skeleton" style="height:120px;border-radius:var(--radius-xl)"></div>
+          <div class="skeleton" style="height:120px;border-radius:var(--radius-xl)"></div>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div>
+        <div class="cart-summary">
+          <div class="cart-summary-title">Order Summary</div>
+          
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="summary-subtotal">₹0</span>
+          </div>
+          <div class="summary-row">
+            <span>Estimated Shipping</span>
+            <span id="summary-shipping" style="color:var(--success)">FREE</span>
+          </div>
+          <div class="summary-row">
+            <span>Taxes (Included)</span>
+            <span>₹0</span>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="summary-row total">
+            <span>Total Amount</span>
+            <span id="summary-total" style="color:var(--accent-secondary)">₹0</span>
+          </div>
+
+          <a href="checkout.html" class="btn btn-primary btn-block btn-lg" id="checkout-btn" style="margin-top:1.5rem">
+            Proceed to Checkout →
+          </a>
+
+          <div style="text-align:center;margin-top:1.25rem">
+            <a href="products.html" style="font-size:0.85rem;color:var(--text-muted)">← Continue Shopping</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      if (requireAuth()) {
+        loadCart();
+      }
+    });
+
+    async function loadCart() {
+      const container = document.getElementById('cart-items-list');
+      try {
+        const cart = await CartAPI.get();
+        
+        document.getElementById('items-count-label').textContent = `${cart.total_items} Item${cart.total_items !== 1 ? 's' : ''}`;
+        document.getElementById('summary-subtotal').textContent = formatPrice(cart.subtotal);
+        document.getElementById('summary-shipping').textContent = cart.subtotal >= 999 || cart.subtotal === 0 ? 'FREE' : formatPrice(99);
+        const finalTotal = cart.subtotal >= 999 || cart.subtotal === 0 ? cart.subtotal : cart.subtotal + 99;
+        document.getElementById('summary-total').textContent = formatPrice(finalTotal);
+
+        if (!cart.items || cart.items.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">🛒</div>
+              <h3>Your cart is empty</h3>
+              <p>Looks like you haven't added any shoes yet.</p>
+              <a href="products.html" class="btn btn-primary" style="margin-top:1.5rem">Explore Collection</a>
+            </div>
+          `;
+          document.getElementById('checkout-btn').style.pointerEvents = 'none';
+          document.getElementById('checkout-btn').style.opacity = '0.5';
+          document.getElementById('clear-cart-btn').style.display = 'none';
+          return;
+        }
+
+        document.getElementById('checkout-btn').style.pointerEvents = 'auto';
+        document.getElementById('checkout-btn').style.opacity = '1';
+        document.getElementById('clear-cart-btn').style.display = 'inline-block';
+
+        container.innerHTML = cart.items.map(item => `
+          <div class="cart-item">
+            <img src="${item.image || FALLBACK_SHOE_IMAGE}" alt="${item.name}" class="cart-item-image" onerror="this.onerror=null;this.src=FALLBACK_SHOE_IMAGE">
+            <div class="cart-item-details">
+              <div class="cart-item-brand">${item.brand}</div>
+              <h3 class="cart-item-name"><a href="product-detail.html?id=${item.product_id}">${item.name}</a></h3>
+              <div class="cart-item-meta">
+                <span>Size: <strong>${item.size}</strong></span>
+                <span>Color: <strong>${item.color}</strong></span>
+              </div>
+              <div class="cart-item-actions">
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="updateQty('${item.product_id}', '${item.size}', '${item.color}', ${item.quantity - 1})">-</button>
+                  <span class="qty-display">${item.quantity}</span>
+                  <button class="qty-btn" onclick="updateQty('${item.product_id}', '${item.size}', '${item.color}', ${item.quantity + 1})">+</button>
+                </div>
+                <div style="display:flex;align-items:center;gap:1.5rem">
+                  <span style="font-family:'Outfit',sans-serif;font-weight:700;font-size:1.1rem;color:var(--text-primary)">${formatPrice(item.subtotal)}</span>
+                  <button class="btn btn-ghost btn-sm" style="color:var(--error);padding:0.4rem 0.6rem" onclick="removeItem('${item.product_id}', '${item.size}', '${item.color}')" title="Remove">🗑️</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (e) {
+        container.innerHTML = `<div class="empty-state"><p>${e.message}</p></div>`;
+      }
+    }
+
+    async function updateQty(productId, size, color, newQty) {
+      if (newQty < 1) {
+        return removeItem(productId, size, color);
+      }
+      try {
+        await CartAPI.update(productId, size, color, newQty);
+        await loadCart();
+        updateCartBadge();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    async function removeItem(productId, size, color) {
+      try {
+        await CartAPI.remove(productId, size, color);
+        showToast('Item removed from cart', 'info');
+        await loadCart();
+        updateCartBadge();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+
+    document.getElementById('clear-cart-btn')?.addEventListener('click', async () => {
+      if (!confirm('Are you sure you want to clear your cart?')) return;
+      try {
+        await CartAPI.clear();
+        showToast('Cart cleared', 'info');
+        await loadCart();
+        updateCartBadge();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>

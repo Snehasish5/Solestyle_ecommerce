@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoleStyle — Step Into Style</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .orders-layout {
+      max-width: 900px;
+      margin: calc(var(--navbar-height) + 2rem) auto 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand"><div class="nav-brand-logo">👟</div><span class="nav-brand-name">SoleStyle</span></a>
+      <div class="nav-search"><span class="nav-search-icon">🔍</span><input type="text" id="nav-search-input" class="nav-search-input" placeholder="Search shoes..."></div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Shop</a>
+      </div>
+      <div class="nav-actions">
+        <a href="wishlist.html" class="nav-action-btn" title="Wishlist">❤️<span class="nav-badge" id="wishlist-badge" style="display:none">0</span></a>
+        <a href="cart.html" class="nav-action-btn" title="Cart">🛒<span class="nav-badge" id="cart-badge" style="display:none">0</span></a>
+        <div id="nav-user-area"></div>
+        <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="page-header" style="padding-bottom:1.5rem">
+      <h1 style="font-family:'Outfit',sans-serif;font-weight:800">Order History</h1>
+      <p style="color:var(--text-muted)">Track your past purchases and delivery statuses</p>
+    </div>
+
+    <div class="orders-layout" id="orders-list">
+      <div class="skeleton" style="height:160px;border-radius:var(--radius-xl)"></div>
+      <div class="skeleton" style="height:160px;border-radius:var(--radius-xl)"></div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      if (requireAuth()) {
+        const newOrderId = getParam('new_order');
+        if (newOrderId) {
+          showToast('🎉Order placed successfully!', 'success');
+        }
+        loadOrders();
+      }
+    });
+
+    async function loadOrders() {
+      const container = document.getElementById('orders-list');
+      try {
+        const data = await OrdersAPI.list();
+        if (!data.orders || data.orders.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">📦</div>
+              <h3>No orders yet</h3>
+              <p>When you place orders, they will appear right here.</p>
+              <a href="products.html" class="btn btn-primary" style="margin-top:1.5rem">Shop Shoes Now</a>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = data.orders.map(order => `
+          <div class="order-card" id="order-${order.id}">
+            <div class="order-card-header">
+              <div>
+                <span class="order-id">Order #${order.id.slice(-8).toUpperCase()}</span>
+                <span class="order-date" style="margin-left:0.75rem">• Placed on ${formatDate(order.created_at)}</span>
+              </div>
+              <span class="order-status status-${order.status}">${order.status}</span>
+            </div>
+
+            <div class="order-items-preview">
+              ${order.items.map(item => `
+                <img src="${item.image || FALLBACK_SHOE_IMAGE}" class="order-item-thumb" title="${item.name} (${item.size})" onerror="this.onerror=null;this.src=FALLBACK_SHOE_IMAGE">
+              `).join('')}
+            </div>
+
+            <div class="order-card-footer">
+              <div>
+                <span style="font-size:0.8rem;color:var(--text-muted)">Total Amount (${order.item_count} items): </span>
+                <strong style="font-family:'Outfit',sans-serif;font-size:1.1rem;color:var(--text-primary);margin-left:0.4rem">${formatPrice(order.total)}</strong>
+              </div>
+              <div style="display:flex;gap:0.75rem">
+                ${['confirmed', 'pending'].includes(order.status) ? `
+                  <button class="btn btn-danger btn-sm" onclick="cancelOrder('${order.id}')">Cancel Order</button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (e) {
+        container.innerHTML = `<div class="empty-state"><p>${e.message}</p></div>`;
+      }
+    }
+
+    async function cancelOrder(orderId) {
+      if (!confirm('Are you sure you want to cancel this order?')) return;
+      try {
+        await OrdersAPI.cancel(orderId);
+        showToast('Order cancelled successfully', 'info');
+        loadOrders();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoleStyle — Step Into Style</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .wishlist-layout {
+      margin-top: calc(var(--navbar-height) + 2rem);
+      padding-bottom: 5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand"><div class="nav-brand-logo">👟</div><span class="nav-brand-name">SoleStyle</span></a>
+      <div class="nav-search"><span class="nav-search-icon">🔍</span><input type="text" id="nav-search-input" class="nav-search-input" placeholder="Search shoes..."></div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Shop</a>
+      </div>
+      <div class="nav-actions">
+        <a href="wishlist.html" class="nav-action-btn" title="Wishlist">❤️<span class="nav-badge" id="wishlist-badge" style="display:none">0</span></a>
+        <a href="cart.html" class="nav-action-btn" title="Cart">🛒<span class="nav-badge" id="cart-badge" style="display:none">0</span></a>
+        <div id="nav-user-area"></div>
+        <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container wishlist-layout">
+    <div class="page-header" style="padding-bottom:1.5rem">
+      <h1 style="font-family:'Outfit',sans-serif;font-weight:800">My Wishlist</h1>
+      <p style="color:var(--text-muted)" id="wishlist-count-desc">Saved shoes you love</p>
+    </div>
+
+    <div class="wishlist-grid" id="wishlist-grid">
+      ${Array(4).fill(0).map(() => `
+        <div class="product-card">
+          <div class="skeleton" style="aspect-ratio:1;border-radius:var(--radius-xl) var(--radius-xl) 0 0"></div>
+          <div style="padding:1.25rem">
+            <div class="skeleton" style="height:14px;width:60%;margin-bottom:.5rem"></div>
+            <div class="skeleton" style="height:18px;width:80%"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      if (requireAuth()) {
+        loadWishlist();
+      }
+    });
+
+    async function loadWishlist() {
+      const grid = document.getElementById('wishlist-grid');
+      try {
+        const data = await WishlistAPI.get();
+        document.getElementById('wishlist-count-desc').textContent = `${data.count} item${data.count !== 1 ? 's' : ''} saved for later`;
+        setWishlistIds(data.products.map(p => p.id));
+        updateWishlistBadge();
+
+        if (!data.products || data.products.length === 0) {
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column:1/-1">
+              <div class="empty-icon">🤍</div>
+              <h3>Your wishlist is empty</h3>
+              <p>Explore our store and save your favorite kicks!</p>
+              <a href="products.html" class="btn btn-primary" style="margin-top:1.5rem">Browse Shoes</a>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = data.products.map(p => `
+          <div class="product-card" data-id="${p.id}">
+            <div class="product-card-image">
+              <a href="product-detail.html?id=${p.id}">
+                <img src="${p.image || FALLBACK_SHOE_IMAGE}" alt="${p.name}" onerror="this.onerror=null;this.src=FALLBACK_SHOE_IMAGE">
+              </a>
+              <div class="product-card-actions" style="opacity:1;transform:none">
+                <button class="product-action-btn wishlisted" onclick="removeFromWishlist('${p.id}')" title="Remove from wishlist">❌</button>
+              </div>
+            </div>
+            <div class="product-card-body">
+              <div class="product-card-brand">${p.brand}</div>
+              <div class="product-card-name"><a href="product-detail.html?id=${p.id}">${p.name}</a></div>
+              <div class="product-card-footer">
+                <span class="price-current">${formatPrice(p.price)}</span>
+                <a href="product-detail.html?id=${p.id}" class="btn btn-primary btn-sm">View Shoes</a>
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+      } catch (e) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>${e.message}</p></div>`;
+      }
+    }
+
+    async function removeFromWishlist(id) {
+      try {
+        await WishlistAPI.remove(id);
+        showToast('Removed from wishlist', 'info');
+        loadWishlist();
+      } catch (e) {
+        showToast(e.message, 'error');
+      }
+    }
+  </script>
+</body>
+</html>

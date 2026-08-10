@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoleStyle — Step Into Style</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .product-detail-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: calc(var(--navbar-height) + 2rem);
+      padding-bottom: 5rem;
+    }
+
+    /* Gallery */
+    .gallery { display: flex; flex-direction: column; gap: 1rem; }
+
+    .gallery-main {
+      position: relative;
+      aspect-ratio: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-main:hover img { transform: scale(1.06); }
+
+    .gallery-main-zoom {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      background: rgba(18,18,31,0.8);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.85rem;
+      backdrop-filter: blur(8px);
+      transition: all var(--transition-fast);
+    }
+
+    .gallery-main-zoom:hover { background: rgba(124,58,237,0.3); }
+
+    .gallery-thumbs {
+      display: flex;
+      gap: 0.75rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+    }
+
+    .gallery-thumb {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-thumb.active, .gallery-thumb:hover { border-color: var(--accent-primary); }
+
+    /* Product Info */
+    .product-info { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .product-info-brand {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .product-info-name {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .product-info-rating {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.875rem;
+    }
+
+    .product-info-rating a {
+      color: var(--accent-secondary);
+      font-size: 0.8rem;
+      transition: color var(--transition-fast);
+    }
+    .product-info-rating a:hover { color: var(--text-primary); }
+
+    .product-info-price .price-current { font-size: 2rem; }
+
+    .product-info-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.8;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    /* Size & Color Selectors */
+    .selector-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.6rem;
+    }
+
+    .sizes-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .size-btn {
+      min-width: 48px;
+      height: 44px;
+      padding: 0 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      font-weight: 600;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .size-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--text-primary);
+      background: rgba(124,58,237,0.1);
+    }
+
+    .size-btn.selected {
+      background: var(--gradient-btn);
+      border-color: var(--accent-primary);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+    }
+
+    .colors-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .color-btn {
+      padding: 0.4rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-full);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .color-btn:hover {
+      border-color: var(--accent-secondary);
+      color: var(--text-primary);
+    }
+
+    .color-btn.selected {
+      background: rgba(124,58,237,0.15);
+      border-color: var(--accent-primary);
+      color: var(--accent-secondary);
+    }
+
+    /* Action Buttons */
+    .product-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .product-actions .btn-primary { flex: 1; }
+    .product-actions .btn-icon { flex-shrink: 0; width: 48px; height: 48px; border-radius: var(--radius-md); }
+
+    /* Stock indicator */
+    .stock-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    .stock-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .stock-dot.in-stock { background: var(--success); box-shadow: 0 0 8px var(--success); }
+    .stock-dot.low-stock { background: var(--warning); box-shadow: 0 0 8px var(--warning); }
+    .stock-dot.out-stock { background: var(--error); }
+
+    /* Meta tags */
+    .product-meta-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .meta-tag {
+      padding: 0.25rem 0.7rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* Reviews Section */
+    .reviews-section { margin-top: 4rem; }
+    .reviews-section h2 { font-family:'Outfit',sans-serif; font-size:1.5rem; margin-bottom:1.5rem; }
+
+    .review-summary {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 1.5rem;
+    }
+
+    .review-score {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .review-score-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-main);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .review-card {
+      padding: 1.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 1rem;
+      transition: all var(--transition-med);
+    }
+
+    .review-card:hover { border-color: var(--border-accent); }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .review-avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-btn);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .review-date { font-size: 0.75rem; color: var(--text-muted); }
+    .review-comment { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .add-review-form {
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      margin-bottom: 2rem;
+    }
+
+    .star-input { display: flex; gap: 0.25rem; cursor: pointer; margin-bottom: 0.75rem; }
+    .star-input span { font-size: 1.5rem; color: var(--text-muted); transition: all var(--transition-fast); }
+    .star-input span.active { color: var(--accent-gold); }
+
+    @media (max-width: 900px) {
+      .product-detail-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR (same as other pages) -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand"><div class="nav-brand-logo">👟</div><span class="nav-brand-name">SoleStyle</span></a>
+      <div class="nav-search"><span class="nav-search-icon">🔍</span><input type="text" id="nav-search-input" class="nav-search-input" placeholder="Search shoes..."></div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="products.html?category=men" class="nav-link">Men</a>
+        <a href="products.html?category=women" class="nav-link">Women</a>
+        <a href="products.html?is_new_arrival=true" class="nav-link">New Arrivals</a>
+      </div>
+      <div class="nav-actions">
+        <a href="wishlist.html" class="nav-action-btn" title="Wishlist">❤️<span class="nav-badge" id="wishlist-badge" style="display:none">0</span></a>
+        <a href="cart.html" class="nav-action-btn" title="Cart">🛒<span class="nav-badge" id="cart-badge" style="display:none">0</span></a>
+        <div id="nav-user-area"></div>
+        <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="products.html" class="nav-link">Shop All</a>
+    <a href="wishlist.html" class="nav-link">❤️</a>
+    <a href="cart.html" class="nav-link">🛒</a>
+    <a href="orders.html" class="nav-link">Orders</a>
+  </div>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" style="margin-top:calc(var(--navbar-height) + 1.5rem);justify-content:flex-start">
+      <a href="index.html">Home</a> / <a href="products.html">Shop</a> / <span id="breadcrumb-name">Product</span>
+    </div>
+
+    <div class="product-detail-layout" id="product-layout">
+      <!-- Loading skeleton -->
+      <div class="gallery">
+        <div class="skeleton" style="aspect-ratio:1;border-radius:var(--radius-xl)"></div>
+        <div style="display:flex;gap:.75rem">
+          ${Array(3).fill(0).map(()=>`<div class="skeleton" style="width:72px;height:72px;border-radius:var(--radius-md)"></div>`).join('')}
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1.25rem">
+        <div class="skeleton" style="height:14px;width:30%;border-radius:6px"></div>
+        <div class="skeleton" style="height:2rem;width:80%;border-radius:6px"></div>
+        <div class="skeleton" style="height:12px;width:50%;border-radius:6px"></div>
+        <div class="skeleton" style="height:2.5rem;width:40%;border-radius:6px"></div>
+        <div class="skeleton" style="height:80px;border-radius:var(--radius-md)"></div>
+        <div class="skeleton" style="height:50px;border-radius:var(--radius-full)"></div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <div class="reviews-section">
+      <h2>Customer Reviews</h2>
+      <div id="reviews-container"></div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    let product = null;
+    let selectedSize = null;
+    let selectedColor = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initNavbar();
+      const id = getParam('id');
+      if (!id) { window.location.href = 'products.html'; return; }
+      await loadProduct(id);
+      await loadReviews(id);
+    });
+
+    async function loadProduct(id) {
+      try {
+        product = await ProductsAPI.get(id);
+        renderProduct();
+      } catch (e) {
+        document.getElementById('product-layout').innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1">
+            <div class="empty-icon">😔</div>
+            <h3>Product not found</h3>
+            <a href="products.html" class="btn btn-primary" style="margin-top:1rem">Back to Shop</a>
+          </div>`;
+      }
+    }
+
+    function renderProduct() {
+      document.title = `${product.name} — SoleStyle`;
+      document.getElementById('breadcrumb-name').textContent = product.name;
+
+      const discount = getDiscountPercent(product.original_price, product.price);
+      const stockStatus = product.stock === 0 ? 'out-stock' : product.stock < 5 ? 'low-stock' : 'in-stock';
+      const stockLabel = product.stock === 0 ? 'Out of Stock' : product.stock < 5 ? `Only ${product.stock} left!` : 'In Stock';
+      const isWishlisted = getWishlistIds().includes(product.id);
+
+      // Main image list
+      const images = (product.images && product.images.length > 0) ? product.images : [FALLBACK_SHOE_IMAGE];
+
+      document.getElementById('product-layout').innerHTML = `
+        <div class="gallery">
+          <div class="gallery-main">
+            <img src="${images[0]}" alt="${product.name}" id="main-img"
+                 onerror="this.onerror=null;this.src=FALLBACK_SHOE_IMAGE">
+            <div class="gallery-main-zoom" title="View full size" onclick="openFullImg()">🔍</div>
+          </div>
+          ${images.length > 1 ? `
+            <div class="gallery-thumbs">
+              ${images.map((img, i) => `
+                <div class="gallery-thumb ${i===0?'active':''}" data-idx="${i}" onclick="switchImg(${i})">
+                  <img src="${img}" alt="View ${i+1}" onerror="this.onerror=null;this.src=FALLBACK_SHOE_IMAGE">
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+        </div>
+
+        <div class="product-info">
+          <div class="product-info-brand">${product.brand}</div>
+          <h1 class="product-info-name">${product.name}</h1>
+
+          <div class="product-info-rating">
+            ${renderStars(product.average_rating, true, product.review_count)}
+            <a href="#reviews">See all reviews</a>
+          </div>
+
+          <div class="price-group" style="align-items:center">
+            <span class="price-current" style="font-size:2rem">${formatPrice(product.price)}</span>
+            ${product.original_price ? `<span class="price-original" style="font-size:1.1rem">${formatPrice(product.original_price)}</span>` : ''}
+            ${discount > 0 ? `<span class="badge badge-sale">${discount}% OFF</span>` : ''}
+          </div>
+
+          <div class="stock-indicator">
+            <div class="stock-dot ${stockStatus}"></div>
+            <span style="color:${stockStatus==='in-stock'?'var(--success)':stockStatus==='low-stock'?'var(--warning)':'var(--error)'}">${stockLabel}</span>
+          </div>
+
+          <div class="product-info-desc">${product.description}</div>
+
+          ${product.sizes.length > 0 ? `
+            <div>
+              <div class="selector-label">
+                <span>Select Size (UK)</span>
+                <a href="#" style="font-size:0.75rem;color:var(--accent-secondary)">📏 Size Guide</a>
+              </div>
+              <div class="sizes-grid" id="sizes-grid">
+                ${product.sizes.map(s => `<button class="size-btn" data-size="${s}">${s}</button>`).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          ${product.colors.length > 0 ? `
+            <div>
+              <div class="selector-label">
+                <span>Select Color: <span id="selected-color-label" style="color:var(--text-primary)">—</span></span>
+              </div>
+              <div class="colors-grid" id="colors-grid">
+                ${product.colors.map(c => `<button class="color-btn" data-color="${c}">${c}</button>`).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div class="product-actions">
+            <button class="btn btn-primary btn-lg" id="add-to-cart-btn" ${product.stock===0?'disabled':''}>
+              🛒 ${product.stock===0?'Out of Stock':'Add to Cart'}
+            </button>
+            <button class="btn btn-icon ${isWishlisted?'btn-danger':'btn-secondary'}" id="wishlist-btn"
+                    style="width:48px;height:48px;border-radius:var(--radius-md)" title="${isWishlisted?'Remove from Wishlist':'Add to Wishlist'}">
+              ${isWishlisted?'❤️':'🤍'}
+            </button>
+          </div>
+
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;font-size:0.8rem;color:var(--text-muted)">
+            <span>Free delivery above ₹999</span>
+            <span>Easy 30-day returns</span>
+            <span>Secure checkout</span>
+          </div>
+
+          ${product.tags.length > 0 ? `
+            <div class="product-meta-tags">
+              ${product.tags.map(t => `<span class="meta-tag">#${t}</span>`).join('')}
+            </div>
+          ` : ''}
+        </div>
+      `;
+
+      bindProductActions();
+    }
+
+    let currentImgIdx = 0;
+    function switchImg(idx) {
+      currentImgIdx = idx;
+      const imgs = product.images;
+      document.getElementById('main-img').src = imgs[idx];
+      document.querySelectorAll('.gallery-thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === idx);
+      });
+    }
+
+    function openFullImg() {
+      window.open(product.images[currentImgIdx] || product.images[0], '_blank');
+    }
+
+    function bindProductActions() {
+      // Size selection
+      document.querySelectorAll('.size-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedSize = btn.dataset.size;
+        });
+      });
+
+      // Color selection
+      document.querySelectorAll('.color-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.color-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedColor = btn.dataset.color;
+          document.getElementById('selected-color-label').textContent = selectedColor;
+        });
+      });
+
+      // Add to cart
+      document.getElementById('add-to-cart-btn')?.addEventListener('click', async () => {
+        if (!requireAuth()) return;
+        if (product.sizes.length && !selectedSize) { showToast('Please select a size', 'warning'); return; }
+        if (product.colors.length && !selectedColor) { showToast('Please select a color', 'warning'); return; }
+        const btn = document.getElementById('add-to-cart-btn');
+        btn.disabled = true;
+        btn.textContent = 'Adding...';
+        try {
+          await CartAPI.add({
+            product_id: product.id,
+            size: selectedSize || product.sizes[0] || 'One Size',
+            color: selectedColor || product.colors[0] || 'Default',
+            quantity: 1,
+          });
+          showToast('Added to cart! 🛒', 'success');
+          updateCartBadge();
+        } catch (e) {
+          showToast(e.message, 'error');
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = '🛒 Add to Cart';
+        }
+      });
+
+      // Wishlist
+      document.getElementById('wishlist-btn')?.addEventListener('click', async () => {
+        if (!requireAuth()) return;
+        const btn = document.getElementById('wishlist-btn');
+        await toggleWishlist(product.id, btn);
+      });
+    }
+
+    // ===== REVIEWS =====
+    async function loadReviews(id) {
+      const container = document.getElementById('reviews-container');
+      try {
+        const reviews = await ProductsAPI.getReviews(id);
+        const avgRating = reviews.length
+          ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1)
+          : 0;
+
+        container.innerHTML = `
+          <div id="reviews">
+            ${reviews.length > 0 ? `
+              <div class="review-summary">
+                <div class="review-score">
+                  <div class="review-score-num">${avgRating}</div>
+                  ${renderStars(parseFloat(avgRating))}
+                  <div style="font-size:.8rem;color:var(--text-muted);margin-top:.25rem">${reviews.length} review${reviews.length!==1?'s':''}</div>
+                </div>
+              </div>
+            ` : ''}
+
+            ${isLoggedIn() ? `
+              <div class="add-review-form">
+                <h4 style="font-family:'Outfit',sans-serif;margin-bottom:1rem">Write a Review</h4>
+                <div class="star-input" id="star-input">
+                  ${[1,2,3,4,5].map(i=>`<span data-rating="${i}">★</span>`).join('')}
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" id="review-comment" rows="3" placeholder="Share your experience with this product..." style="resize:vertical"></textarea>
+                </div>
+                <button class="btn btn-primary" id="submit-review">Submit Review</button>
+              </div>
+            ` : `
+              <div style="padding:1.25rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-xl);margin-bottom:1.5rem;text-align:center">
+                <a href="login.html" class="btn btn-primary btn-sm">Sign in to write a review</a>
+              </div>
+            `}
+
+            <div id="reviews-list">
+              ${reviews.length === 0 ? `
+                <div class="empty-state">
+                  <div class="empty-icon">💬</div>
+                  <h3>No reviews yet</h3>
+                  <p>Be the first to review this product!</p>
+                </div>
+              ` : reviews.map(r => `
+                <div class="review-card">
+                  <div class="review-header">
+                    <div class="review-author">
+                      <div class="review-avatar">${r.user_name.slice(0,2).toUpperCase()}</div>
+                      <span>${r.user_name}</span>
+                    </div>
+                    <div style="text-align:right">
+                      ${renderStars(r.rating)}
+                      <div class="review-date">${formatDate(r.created_at)}</div>
+                    </div>
+                  </div>
+                  <p class="review-comment">${r.comment}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+
+        // Star input
+        let selectedRating = 0;
+        document.querySelectorAll('#star-input span').forEach(star => {
+          star.addEventListener('mouseover', () => {
+            document.querySelectorAll('#star-input span').forEach((s, i) => {
+              s.classList.toggle('active', i < parseInt(star.dataset.rating));
+            });
+          });
+          star.addEventListener('mouseout', () => {
+            document.querySelectorAll('#star-input span').forEach((s, i) => {
+              s.classList.toggle('active', i < selectedRating);
+            });
+          });
+          star.addEventListener('click', () => {
+            selectedRating = parseInt(star.dataset.rating);
+          });
+        });
+
+        // Submit review
+        document.getElementById('submit-review')?.addEventListener('click', async () => {
+          const comment = document.getElementById('review-comment').value.trim();
+          if (!selectedRating) { showToast('Please select a rating', 'warning'); return; }
+          if (!comment || comment.length < 5) { showToast('Review must be at least 5 characters', 'warning'); return; }
+          try {
+            await ProductsAPI.addReview(product.id, { rating: selectedRating, comment });
+            showToast('Review submitted! ⭐', 'success');
+            await loadReviews(product.id);
+          } catch (e) {
+            showToast(e.message, 'error');
+          }
+        });
+
+      } catch (e) {
+        container.innerHTML = `<p style="color:var(--text-muted)">Could not load reviews.</p>`;
+      }
+    }
+  </script>
+</body>
+</html>

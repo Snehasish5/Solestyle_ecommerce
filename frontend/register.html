@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SoleStyle — Step Into Style</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background: radial-gradient(circle at center, rgba(124,58,237,0.15) 0%, transparent 70%);
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 480px;
+      padding: 2.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="index.html" class="nav-brand" style="justify-content:center;margin-bottom:1rem">
+          <div class="nav-brand-logo">👟</div>
+          <span class="nav-brand-name">SoleStyle</span>
+        </a>
+        <h1 class="auth-title">Create an Account</h1>
+        <p style="color:var(--text-muted);font-size:0.875rem">Join SoleStyle for exclusive drops & rewards</p>
+      </div>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-control" id="name" required placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-control" id="email" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Phone Number (Optional)</label>
+          <input type="tel" class="form-control" id="phone" placeholder="9876543210">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password *</label>
+          <input type="password" class="form-control" id="password" required minlength="6" placeholder="At least 6 characters">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" id="submit-btn" style="margin-top:1.5rem">
+          Create Account
+        </button>
+      </form>
+
+      <div class="divider-text" style="margin:2rem 0">OR</div>
+
+      <div style="text-align:center;font-size:0.875rem;color:var(--text-muted)">
+        Already have an account? <a href="login.html" style="color:var(--accent-secondary);font-weight:600">Sign In</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim() || undefined;
+      const password = document.getElementById('password').value;
+      const btn = document.getElementById('submit-btn');
+
+      btn.disabled = true;
+      btn.textContent = 'Creating Account...';
+
+      try {
+        const res = await AuthAPI.register({ name, email, phone, password });
+        saveAuth(res.access_token, res.user);
+        showToast(`Account created! Welcome, ${res.user.name.split(' ')[0]}`, 'success');
+
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1200);
+
+      } catch (err) {
+        showToast(err.message, 'error');
+        btn.disabled = false;
+        btn.innerHTML = 'Create Account';
+      }
+    });
+  </script>
+</body>
+</html>

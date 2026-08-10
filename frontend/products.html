@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Shop all premium shoes at SoleStyle. Filter by brand, size, color, price and more.">
+  <title>SoleStyle — Step Into Style</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .shop-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      margin-top: calc(var(--navbar-height) + 2rem);
+      padding-bottom: 4rem;
+    }
+
+    .shop-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .shop-count {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .shop-sort {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .mobile-filter-btn {
+      display: none;
+    }
+
+    .active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.75rem;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      color: var(--accent-secondary);
+    }
+
+    .filter-tag-remove {
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1;
+      transition: color var(--transition-fast);
+    }
+    .filter-tag-remove:hover { color: var(--error); }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+    }
+
+    .page-btn {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .page-btn:hover, .page-btn.active {
+      background: rgba(124,58,237,0.15);
+      border-color: var(--accent-primary);
+      color: var(--accent-secondary);
+    }
+
+    .page-btn.active { font-weight: 700; }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    @media (max-width: 1024px) {
+      .shop-layout { grid-template-columns: 1fr; }
+      .filter-sidebar { display: none; position: fixed; inset: 0; z-index: 2000; border-radius: 0; max-height: 100vh; overflow-y: auto; }
+      .filter-sidebar.open { display: block; }
+      .mobile-filter-btn { display: flex; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-brand">
+        <div class="nav-brand-logo">👟</div>
+        <span class="nav-brand-name">SoleStyle</span>
+      </a>
+      <div class="nav-search">
+        <span class="nav-search-icon">🔍</span>
+        <input type="text" id="nav-search-input" class="nav-search-input" placeholder="Search shoes, brands...">
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="products.html" class="nav-link">Shop</a>
+        <a href="products.html?category=men" class="nav-link">Men</a>
+        <a href="products.html?category=women" class="nav-link">Women</a>
+        <a href="products.html?is_new_arrival=true" class="nav-link">New Arrivals</a>
+      </div>
+      <div class="nav-actions">
+        <a href="wishlist.html" class="nav-action-btn" title="Wishlist">❤️<span class="nav-badge" id="wishlist-badge" style="display:none">0</span></a>
+        <a href="cart.html" class="nav-action-btn" title="Cart">🛒<span class="nav-badge" id="cart-badge" style="display:none">0</span></a>
+        <div id="nav-user-area"></div>
+        <button class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="products.html" class="nav-link">Shop All</a>
+    <a href="wishlist.html" class="nav-link">❤️</a>
+    <a href="cart.html" class="nav-link">🛒</a>
+    <a href="orders.html" class="nav-link">Orders</a>
+  </div>
+
+  <div class="container">
+    <div class="shop-layout">
+      <!-- FILTER SIDEBAR -->
+      <aside class="filter-sidebar" id="filter-sidebar">
+        <div class="filter-title">
+          <span>Filters</span>
+          <button class="btn btn-ghost btn-sm" id="clear-filters">Clear All</button>
+        </div>
+
+        <!-- Category -->
+        <div class="filter-section">
+          <div class="filter-section-title">Category</div>
+          <div class="filter-option"><input type="radio" name="category" id="cat-all" value=""><label for="cat-all">All</label></div>
+          <div class="filter-option"><input type="radio" name="category" id="cat-men" value="men"><label for="cat-men">Men</label></div>
+          <div class="filter-option"><input type="radio" name="category" id="cat-women" value="women"><label for="cat-women">Women</label></div>
+          <div class="filter-option"><input type="radio" name="category" id="cat-kids" value="kids"><label for="cat-kids">Kids</label></div>
+          <div class="filter-option"><input type="radio" name="category" id="cat-unisex" value="unisex"><label for="cat-unisex">Unisex</label></div>
+        </div>
+
+        <!-- Sub-Category -->
+        <div class="filter-section">
+          <div class="filter-section-title">Style</div>
+          <div class="filter-option"><input type="radio" name="sub_category" id="sub-all" value=""><label for="sub-all">All Styles</label></div>
+          <div class="filter-option"><input type="radio" name="sub_category" id="sub-running" value="running"><label for="sub-running">Running</label></div>
+          <div class="filter-option"><input type="radio" name="sub_category" id="sub-casual" value="casual"><label for="sub-casual">Casual</label></div>
+          <div class="filter-option"><input type="radio" name="sub_category" id="sub-sports" value="sports"><label for="sub-sports">Sports</label></div>
+          <div class="filter-option"><input type="radio" name="sub_category" id="sub-formal" value="formal"><label for="sub-formal">Formal</label></div>
+        </div>
+
+        <!-- Brand -->
+        <div class="filter-section">
+          <div class="filter-section-title">Brand</div>
+          <div id="brand-filters">
+            <div class="filter-option"><input type="checkbox" id="brand-nike" value="Nike"><label for="brand-nike">Nike</label></div>
+            <div class="filter-option"><input type="checkbox" id="brand-adidas" value="Adidas"><label for="brand-adidas">Adidas</label></div>
+            <div class="filter-option"><input type="checkbox" id="brand-puma" value="Puma"><label for="brand-puma">Puma</label></div>
+            <div class="filter-option"><input type="checkbox" id="brand-converse" value="Converse"><label for="brand-converse">Converse</label></div>
+            <div class="filter-option"><input type="checkbox" id="brand-vans" value="Vans"><label for="brand-vans">Vans</label></div>
+            <div class="filter-option"><input type="checkbox" id="brand-asics" value="ASICS"><label for="brand-asics">ASICS</label></div>
+            <div class="filter-option"><input type="checkbox" id="brand-nb" value="New Balance"><label for="brand-nb">New Balance</label></div>
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-section">
+          <div class="filter-section-title">Price Range (₹)</div>
+          <div class="price-range-inputs">
+            <input type="number" id="min-price" placeholder="Min" min="0">
+            <span style="color:var(--text-muted)">—</span>
+            <input type="number" id="max-price" placeholder="Max" min="0">
+          </div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:.75rem;width:100%" id="apply-price">Apply</button>
+        </div>
+
+        <!-- Size -->
+        <div class="filter-section">
+          <div class="filter-section-title">Size (UK)</div>
+          <div class="size-filter-grid" id="size-filters">
+            <button class="size-filter-btn" data-size="4">4</button>
+            <button class="size-filter-btn" data-size="5">5</button>
+            <button class="size-filter-btn" data-size="6">6</button>
+            <button class="size-filter-btn" data-size="7">7</button>
+            <button class="size-filter-btn" data-size="8">8</button>
+            <button class="size-filter-btn" data-size="9">9</button>
+            <button class="size-filter-btn" data-size="10">10</button>
+            <button class="size-filter-btn" data-size="11">11</button>
+            <button class="size-filter-btn" data-size="12">12</button>
+          </div>
+        </div>
+
+        <!-- Special -->
+        <div class="filter-section">
+          <div class="filter-section-title">Special</div>
+          <div class="filter-option"><input type="checkbox" id="filter-featured"><label for="filter-featured">⭐Featured</label></div>
+          <div class="filter-option"><input type="checkbox" id="filter-new"><label for="filter-new">New Arrivals</label></div>
+        </div>
+
+        <button class="btn btn-primary btn-block mobile-close-filter" id="mobile-apply-filter" style="display:none">Apply Filters</button>
+      </aside>
+
+      <!-- MAIN -->
+      <div class="shop-main">
+        <div class="shop-header">
+          <div>
+            <h1 style="font-family:'Outfit',sans-serif;font-size:1.5rem;font-weight:800">All Shoes</h1>
+            <div class="shop-count" id="results-count"></div>
+          </div>
+          <div class="shop-sort">
+            <button class="btn btn-ghost btn-sm mobile-filter-btn" id="mobile-filter-btn">⚙️Filters</button>
+            <select class="form-control" id="sort-select" style="width:180px">
+              <option value="newest">Newest First</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="rating">Top Rated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="active-filters" id="active-filters"></div>
+
+        <div class="products-grid" id="products-grid">
+          ${Array(8).fill(0).map(() => `
+            <div class="product-card">
+              <div class="skeleton" style="aspect-ratio:1;border-radius:var(--radius-xl) var(--radius-xl) 0 0"></div>
+              <div style="padding:1.25rem;display:flex;flex-direction:column;gap:.75rem">
+                <div class="skeleton" style="height:12px;width:50%;border-radius:6px"></div>
+                <div class="skeleton" style="height:16px;width:80%;border-radius:6px"></div>
+                <div class="skeleton" style="height:36px;border-radius:var(--radius-full)"></div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Add Modal -->
+  <div class="modal-overlay" id="quick-add-modal">
+    <div class="modal" style="max-width:420px">
+      <div class="modal-header">
+        <h4 id="quick-add-title" style="font-family:'Outfit',sans-serif">Select Options</h4>
+        <button class="modal-close" id="quick-add-close">✕</button>
+      </div>
+      <div style="margin-bottom:.75rem;font-size:.85rem;color:var(--text-muted)">Size:</div>
+      <div id="quick-add-sizes" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem"></div>
+      <div style="margin-bottom:.75rem;font-size:.85rem;color:var(--text-muted)">Color:</div>
+      <div id="quick-add-colors" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem"></div>
+      <button class="btn btn-primary btn-block" id="quick-add-confirm">🛒 Add to Cart</button>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/api.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/navbar.js"></script>
+  <script>
+    // ===== STATE =====
+    const state = {
+      page: 1,
+      limit: 12,
+      sort_by: 'newest',
+      search: '',
+      category: '',
+      sub_category: '',
+      brands: [],
+      min_price: '',
+      max_price: '',
+      size: '',
+      is_featured: false,
+      is_new_arrival: false,
+    };
+
+    let quickAddProduct = null, selectedSize = null, selectedColor = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initNavbar();
+      parseURLParams();
+      bindFilters();
+      loadProducts();
+      initQuickAddModal();
+    });
+
+    function parseURLParams() {
+      const p = new URLSearchParams(window.location.search);
+      if (p.get('search')) state.search = p.get('search');
+      if (p.get('category')) state.category = p.get('category');
+      if (p.get('sub_category')) state.sub_category = p.get('sub_category');
+      if (p.get('is_featured') === 'true') state.is_featured = true;
+      if (p.get('is_new_arrival') === 'true') state.is_new_arrival = true;
+      if (p.get('brand')) state.brands = [p.get('brand')];
+
+      // Reflect in UI
+      if (state.category) {
+        const el = document.querySelector(`input[name="category"][value="${state.category}"]`);
+        if (el) el.checked = true;
+      }
+      if (state.sub_category) {
+        const el = document.querySelector(`input[name="sub_category"][value="${state.sub_category}"]`);
+        if (el) el.checked = true;
+      }
+      if (state.is_featured) document.getElementById('filter-featured').checked = true;
+      if (state.is_new_arrival) document.getElementById('filter-new').checked = true;
+      state.brands.forEach(b => {
+        const el = document.querySelector(`#brand-filters input[value="${b}"]`);
+        if (el) el.checked = true;
+      });
+    }
+
+    function bindFilters() {
+      // Category
+      document.querySelectorAll('input[name="category"]').forEach(el => {
+        el.addEventListener('change', () => { state.category = el.value; state.page = 1; loadProducts(); });
+      });
+
+      // Sub-category
+      document.querySelectorAll('input[name="sub_category"]').forEach(el => {
+        el.addEventListener('change', () => { state.sub_category = el.value; state.page = 1; loadProducts(); });
+      });
+
+      // Brands
+      document.querySelectorAll('#brand-filters input[type="checkbox"]').forEach(el => {
+        el.addEventListener('change', () => {
+          state.brands = [...document.querySelectorAll('#brand-filters input:checked')].map(b => b.value);
+          state.page = 1;
+          loadProducts();
+        });
+      });
+
+      // Price
+      document.getElementById('apply-price').addEventListener('click', () => {
+        state.min_price = document.getElementById('min-price').value;
+        state.max_price = document.getElementById('max-price').value;
+        state.page = 1;
+        loadProducts();
+      });
+
+      // Size
+      document.querySelectorAll('.size-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const wasActive = btn.classList.contains('active');
+          document.querySelectorAll('.size-filter-btn').forEach(b => b.classList.remove('active'));
+          if (!wasActive) {
+            btn.classList.add('active');
+            state.size = btn.dataset.size;
+          } else {
+            state.size = '';
+          }
+          state.page = 1;
+          loadProducts();
+        });
+      });
+
+      // Special filters
+      document.getElementById('filter-featured').addEventListener('change', (e) => {
+        state.is_featured = e.target.checked;
+        state.page = 1;
+        loadProducts();
+      });
+      document.getElementById('filter-new').addEventListener('change', (e) => {
+        state.is_new_arrival = e.target.checked;
+        state.page = 1;
+        loadProducts();
+      });
+
+      // Sort
+      document.getElementById('sort-select').addEventListener('change', (e) => {
+        state.sort_by = e.target.value;
+        state.page = 1;
+        loadProducts();
+      });
+
+      // Clear filters
+      document.getElementById('clear-filters').addEventListener('click', clearAllFilters);
+
+      // Mobile filter
+      document.getElementById('mobile-filter-btn').addEventListener('click', () => {
+        document.getElementById('filter-sidebar').classList.add('open');
+        document.getElementById('mobile-apply-filter').style.display = 'flex';
+      });
+      document.getElementById('mobile-apply-filter')?.addEventListener('click', () => {
+        document.getElementById('filter-sidebar').classList.remove('open');
+      });
+    }
+
+    function clearAllFilters() {
+      state.category = '';
+      state.sub_category = '';
+      state.brands = [];
+      state.min_price = '';
+      state.max_price = '';
+      state.size = '';
+      state.is_featured = false;
+      state.is_new_arrival = false;
+      state.page = 1;
+
+      document.querySelectorAll('input[name="category"]')[0].checked = true;
+      document.querySelectorAll('input[name="sub_category"]')[0].checked = true;
+      document.querySelectorAll('#brand-filters input').forEach(el => el.checked = false);
+      document.getElementById('min-price').value = '';
+      document.getElementById('max-price').value = '';
+      document.querySelectorAll('.size-filter-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('filter-featured').checked = false;
+      document.getElementById('filter-new').checked = false;
+
+      loadProducts();
+    }
+
+    async function loadProducts() {
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = Array(6).fill(0).map(() => `
+        <div class="product-card">
+          <div class="skeleton" style="aspect-ratio:1;border-radius:var(--radius-xl) var(--radius-xl) 0 0"></div>
+          <div style="padding:1.25rem;display:flex;flex-direction:column;gap:.75rem">
+            <div class="skeleton" style="height:12px;width:50%;border-radius:6px"></div>
+            <div class="skeleton" style="height:16px;width:80%;border-radius:6px"></div>
+            <div class="skeleton" style="height:36px;border-radius:var(--radius-full)"></div>
+          </div>
+        </div>
+      `).join('');
+
+      const params = {
+        page: state.page,
+        limit: state.limit,
+        sort_by: state.sort_by,
+      };
+      if (state.search) params.search = state.search;
+      if (state.category) params.category = state.category;
+      if (state.sub_category) params.sub_category = state.sub_category;
+      if (state.brands.length) params.brand = state.brands[0]; // API supports single brand filter
+      if (state.min_price) params.min_price = state.min_price;
+      if (state.max_price) params.max_price = state.max_price;
+      if (state.size) params.size = state.size;
+      if (state.is_featured) params.is_featured = true;
+      if (state.is_new_arrival) params.is_new_arrival = true;
+
+      try {
+        const data = await ProductsAPI.list(params);
+        document.getElementById('results-count').textContent = `${data.total} result${data.total !== 1 ? 's' : ''}`;
+
+        if (!data.products.length) {
+          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+            <div class="empty-icon">👟</div>
+            <h3>No shoes found</h3>
+            <p>Try adjusting your filters</p>
+            <button class="btn btn-primary" style="margin-top:1rem" onclick="clearAllFilters()">Clear Filters</button>
+          </div>`;
+          document.getElementById('pagination').innerHTML = '';
+          return;
+        }
+
+        grid.innerHTML = data.products.map(createProductCard).join('');
+        attachCardListeners(grid);
+        renderPagination(data.page, data.total_pages);
+        renderActiveFilters();
+
+      } catch (e) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><p>${e.message}</p></div>`;
+      }
+    }
+
+    function renderPagination(currentPage, totalPages) {
+      const container = document.getElementById('pagination');
+      if (totalPages <= 1) { container.innerHTML = ''; return; }
+
+      let html = `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage-1})">←</button>`;
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+          html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+        } else if (i === currentPage - 3 || i === currentPage + 3) {
+          html += `<span style="color:var(--text-muted);padding:0 .25rem">…</span>`;
+        }
+      }
+      html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage+1})">→</button>`;
+      container.innerHTML = html;
+    }
+
+    function goToPage(p) {
+      state.page = p;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      loadProducts();
+    }
+
+    function renderActiveFilters() {
+      const container = document.getElementById('active-filters');
+      const tags = [];
+      if (state.category) tags.push({ label: `Category: ${state.category}`, clear: () => { state.category=''; document.querySelector('input[name="category"][value=""]').checked=true; } });
+      if (state.sub_category) tags.push({ label: `Style: ${state.sub_category}`, clear: () => { state.sub_category=''; } });
+      if (state.brands.length) tags.push({ label: `Brand: ${state.brands.join(', ')}`, clear: () => { state.brands=[]; document.querySelectorAll('#brand-filters input').forEach(e=>e.checked=false); } });
+      if (state.size) tags.push({ label: `Size: ${state.size}`, clear: () => { state.size=''; document.querySelectorAll('.size-filter-btn').forEach(b=>b.classList.remove('active')); } });
+      if (state.is_featured) tags.push({ label: 'Featured', clear: () => { state.is_featured=false; document.getElementById('filter-featured').checked=false; } });
+      if (state.is_new_arrival) tags.push({ label: 'New Arrivals', clear: () => { state.is_new_arrival=false; document.getElementById('filter-new').checked=false; } });
+
+      container.innerHTML = tags.map((t, i) => `
+        <span class="filter-tag">${t.label} <span class="filter-tag-remove" data-idx="${i}">✕</span></span>
+      `).join('');
+
+      container.querySelectorAll('.filter-tag-remove').forEach(el => {
+        el.addEventListener('click', () => {
+          tags[parseInt(el.dataset.idx)].clear();
+          state.page = 1;
+          loadProducts();
+        });
+      });
+    }
+
+    function attachCardListeners(container) {
+      container.querySelectorAll('.wishlist-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleWishlist(btn.dataset.id, btn);
+        });
+      });
+      container.querySelectorAll('.quick-add-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          openQuickAdd(btn.dataset.id);
+        });
+      });
+    }
+
+    // ===== QUICK ADD =====
+    function initQuickAddModal() {
+      document.getElementById('quick-add-close').addEventListener('click', () => {
+        document.getElementById('quick-add-modal').classList.remove('active');
+      });
+      document.getElementById('quick-add-modal').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('quick-add-modal')) {
+          document.getElementById('quick-add-modal').classList.remove('active');
+        }
+      });
+      document.getElementById('quick-add-confirm').addEventListener('click', async () => {
+        if (!quickAddProduct) return;
+        if (!selectedSize) { showToast('Please select a size', 'warning'); return; }
+        const color = selectedColor || quickAddProduct.colors[0] || '';
+        try {
+          await CartAPI.add({ product_id: quickAddProduct.id, size: selectedSize, color, quantity: 1 });
+          showToast('Added to cart! 🛒', 'success');
+          document.getElementById('quick-add-modal').classList.remove('active');
+          updateCartBadge();
+        } catch (e) {
+          showToast(e.message, 'error');
+        }
+      });
+    }
+
+    async function openQuickAdd(productId) {
+      if (!requireAuth()) return;
+      try {
+        quickAddProduct = await ProductsAPI.get(productId);
+        selectedSize = null; selectedColor = null;
+        document.getElementById('quick-add-title').textContent = quickAddProduct.name;
+        document.getElementById('quick-add-sizes').innerHTML = quickAddProduct.sizes.map(s =>
+          `<button class="size-filter-btn" data-size="${s}">${s}</button>`).join('');
+        document.getElementById('quick-add-colors').innerHTML = quickAddProduct.colors.map(c =>
+          `<button class="size-filter-btn" data-color="${c}">${c}</button>`).join('');
+        document.getElementById('quick-add-sizes').querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.getElementById('quick-add-sizes').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedSize = btn.dataset.size;
+          });
+        });
+        document.getElementById('quick-add-colors').querySelectorAll('button').forEach(btn => {
+          btn.addEventListener('click', () => {
+            document.getElementById('quick-add-colors').querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            selectedColor = btn.dataset.color;
+          });
+        });
+        document.getElementById('quick-add-modal').classList.add('active');
+      } catch (e) {
+        showToast('Could not load product', 'error');
+      }
+    }
+  </script>
+</body>
+</html>
