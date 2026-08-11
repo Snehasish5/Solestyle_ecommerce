@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from config import settings
-from database import create_indexes
-from routes import auth, products, cart, wishlist, orders
+from backend.config import settings
+from backend.database import create_indexes
+from backend.routes import auth, products, cart, wishlist, orders
 
 
 @asynccontextmanager
