@@ -25,6 +25,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["running", "lifestyle", "air-max"],
         "reviews": [],
     },
+
     {
         "name": "Ultra Boost 22",
         "brand": "Adidas",
@@ -45,6 +46,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["running", "ultraboost", "performance"],
         "reviews": [],
     },
+
     {
         "name": "Chuck Taylor All Star",
         "brand": "Converse",
@@ -65,6 +67,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["casual", "classic", "canvas"],
         "reviews": [],
     },
+
     {
         "name": "Classic Suede",
         "brand": "Puma",
@@ -85,6 +88,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["casual", "suede", "classic"],
         "reviews": [],
     },
+
     {
         "name": "Old Skool",
         "brand": "Vans",
@@ -105,6 +109,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["skate", "casual", "classic"],
         "reviews": [],
     },
+
     {
         "name": "Gel-Nimbus 25",
         "brand": "ASICS",
@@ -125,6 +130,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["running", "performance", "long-distance"],
         "reviews": [],
     },
+
     {
         "name": "Air Force 1 '07",
         "brand": "Nike",
@@ -145,6 +151,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["lifestyle", "basketball", "classic"],
         "reviews": [],
     },
+
     {
         "name": "RS-X Bold",
         "brand": "Puma",
@@ -165,6 +172,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["lifestyle", "bold", "retro"],
         "reviews": [],
     },
+
     {
         "name": "Stan Smith",
         "brand": "Adidas",
@@ -185,6 +193,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["tennis", "classic", "leather"],
         "reviews": [],
     },
+
     {
         "name": "Sneaker 574",
         "brand": "New Balance",
@@ -205,6 +214,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["lifestyle", "retro", "ENCAP"],
         "reviews": [],
     },
+
     {
         "name": "Women's Free Run 5.0",
         "brand": "Nike",
@@ -225,6 +235,7 @@ SAMPLE_PRODUCTS = [
         "tags": ["running", "women", "flexible"],
         "reviews": [],
     },
+
     {
         "name": "Kids' Air Max 90",
         "brand": "Nike",
@@ -246,7 +257,6 @@ SAMPLE_PRODUCTS = [
         "reviews": [],
     },
 ]
-
 
 async def seed_database():
     print("🌱 Starting database seed...")
