@@ -37,6 +37,7 @@ async function apiFetch(path, options = {}) {
   return data;
 }
 
+
 // ===== Auth API =====
 const AuthAPI = {
   register: (data) => apiFetch('/auth/register', { method: 'POST', body: JSON.stringify(data) }),
@@ -88,3 +89,7 @@ const OrdersAPI = {
   get: (id) => apiFetch(`/orders/${id}`),
   cancel: (id) => apiFetch(`/orders/${id}/cancel`, { method: 'PUT' }),
 };
+
+const IMAGE_BASE = "https://solestyle-ecommerce-two.vercel.app";
+
+const imageUrl = `${IMAGE_BASE}${product.images[0]}`;
