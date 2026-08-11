@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Us</title>
+
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/components.css">
+
+    <style>
+        .contact-page {
+            max-width: 1000px;
+            margin: auto;
+            padding: 4rem 1.5rem;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .contact-header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 1rem 0;
+            color: var(--accent-primary);
+        }
+
+        .contact-header p {
+            color: var(--text-muted);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 1.5rem;
+        }
+
+        .contact-card {
+            background: var(--gradient-card);
+            border: 1px solid var(--border-accent);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+        }
+
+        .contact-card h2 {
+            font-family: 'Outfit', sans-serif;
+            margin-top: 0;
+        }
+
+        .contact-info {
+            margin-top: 2rem;
+        }
+
+        .contact-info-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info-item strong {
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        .contact-info-item span {
+            color: var(--text-muted);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-form label {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0.85rem 1rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent-primary);
+        }
+
+        .contact-submit {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .back-home {
+            margin-bottom: 2rem;
+            margin-top: 3rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem 1.2rem;
+            border: 1px solid #7c3aed;
+            border-radius: 999px;
+            background: rgba(124, 58, 237, 0.05);
+            color: #ffff00;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.25s ease;
+        }
+
+        .back-home a:hover {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: #9333ea;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.25);
+        }
+
+        @media (max-width: 700px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-page {
+                padding: 3rem 1rem;
+            }
+
+            .contact-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="contact-page">
+
+    <div class="contact-header">
+
+        <div class="section-badge">Get In Touch</div>
+
+        <h1>Contact Us</h1>
+
+        <p>
+            Have a question? We're here to help.
+        </p>
+
+    </div>
+
+    <div class="contact-container">
+
+        <!-- Contact Information -->
+
+        <div class="contact-card">
+
+            <h2>Let's Talk</h2>
+
+            <p style="color:var(--text-muted);line-height:1.7;">
+                Whether you have a question about an order, product,
+                shipping or returns, feel free to reach out to us.
+            </p>
+
+            <div class="contact-info">
+
+                <div class="contact-info-item">
+                    <strong>Email</strong>
+                    <span>support@yourstore.com</span>
+                </div>
+
+                <div class="contact-info-item">
+                    <strong>Phone</strong>
+                    <span>+91 98765 43210</span>
+                </div>
+
+                <div class="contact-info-item">
+                    <strong>Business Hours</strong>
+                    <span>Monday – Saturday, 10:00 AM – 6:00 PM</span>
+                </div>
+
+                <div class="contact-info-item">
+                    <strong>Location</strong>
+                    <span>Kolkata, West Bengal, India</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Contact Form -->
+
+        <div class="contact-card">
+
+            <h2>Send Us a Message</h2>
+
+            <form class="contact-form">
+
+                <div>
+                    <label for="name">Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="subject">Subject</label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="What can we help you with?"
+                        required
+                    >
+                </div>
+
+                <div>
+                    <label for="message">Message</label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        placeholder="Write your message..."
+                        required
+                    ></textarea>
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary contact-submit"
+                >
+                    Send Message
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="back-home">
+        <a href="index.html">← Back to Home</a>
+    </div>
+
+</main>
+
+</body>
+</html>
