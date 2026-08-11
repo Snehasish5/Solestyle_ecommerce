@@ -14,7 +14,7 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "casual",
         "images": [
-            "./images/air-max-pulse-1.png",
+            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
             "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80"
         ],
         "sizes": ["7", "8", "9", "10", "11"],

@@ -1,4 +1,4 @@
-const API_BASE = "https://solestyle-ecommerce-two.vercel.app";
+const API_BASE = "https://solestyle-ecommerce-two.vercel.app/api";
 
 /**
  * Core fetch wrapper with auth header injection and error handling.
@@ -40,56 +40,52 @@ async function apiFetch(path, options = {}) {
 
 // ===== Auth API =====
 const AuthAPI = {
-  register: (data) => apiFetch('/api/auth/register', { method: 'POST', body: JSON.stringify(data) }),
-  login: (data) => apiFetch('/api/auth/login', { method: 'POST', body: JSON.stringify(data) }),
-  me: () => apiFetch('/api/auth/me'),
+  register: (data) => apiFetch('/auth/register', { method: 'POST', body: JSON.stringify(data) }),
+  login: (data) => apiFetch('/auth/login', { method: 'POST', body: JSON.stringify(data) }),
+  me: () => apiFetch('/auth/me'),
 };
 
 // ===== Products API =====
 const ProductsAPI = {
   list: (params = {}) => {
     const qs = new URLSearchParams(params).toString();
-    return apiFetch(`/api/products/?${qs}`);
+    return apiFetch(`/products/?${qs}`);
   },
-  get: (id) => apiFetch(`/api/products/${id}`),
-  featured: () => apiFetch('/api/products/featured'),
-  newArrivals: () => apiFetch('/api/products/new-arrivals'),
-  getReviews: (id) => apiFetch(`/api/products/${id}/reviews`),
-  addReview: (id, data) => apiFetch(`/api/products/${id}/reviews`, { method: 'POST', body: JSON.stringify(data) }),
+  get: (id) => apiFetch(`/products/${id}`),
+  featured: () => apiFetch('/products/featured'),
+  newArrivals: () => apiFetch('/products/new-arrivals'),
+  getReviews: (id) => apiFetch(`/products/${id}/reviews`),
+  addReview: (id, data) => apiFetch(`/products/${id}/reviews`, { method: 'POST', body: JSON.stringify(data) }),
 };
 
 // ===== Cart API =====
 const CartAPI = {
-  get: () => apiFetch('/api/cart/'),
-  add: (data) => apiFetch('/api/cart/add', { method: 'POST', body: JSON.stringify(data) }),
+  get: () => apiFetch('/cart/'),
+  add: (data) => apiFetch('/cart/add', { method: 'POST', body: JSON.stringify(data) }),
   update: (product_id, size, color, quantity) => apiFetch(
-    `/api/cart/item/${product_id}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}`,
+    `/cart/item/${product_id}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}`,
     { method: 'PUT', body: JSON.stringify({ quantity }) }
   ),
   remove: (product_id, size, color) => apiFetch(
-    `/api/cart/item/${product_id}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}`,
+    `/cart/item/${product_id}?size=${encodeURIComponent(size)}&color=${encodeURIComponent(color)}`,
     { method: 'DELETE' }
   ),
-  clear: () => apiFetch('/api/cart/clear', { method: 'DELETE' }),
+  clear: () => apiFetch('/cart/clear', { method: 'DELETE' }),
 };
 
 // ===== Wishlist API =====
 const WishlistAPI = {
-  get: () => apiFetch('/api/wishlist/'),
-  add: (id) => apiFetch(`/api/wishlist/add/${id}`, { method: 'POST' }),
-  remove: (id) => apiFetch(`/api/wishlist/remove/${id}`, { method: 'DELETE' }),
-  check: (id) => apiFetch(`/api/wishlist/check/${id}`),
+  get: () => apiFetch('/wishlist/'),
+  add: (id) => apiFetch(`/wishlist/add/${id}`, { method: 'POST' }),
+  remove: (id) => apiFetch(`/wishlist/remove/${id}`, { method: 'DELETE' }),
+  check: (id) => apiFetch(`/wishlist/check/${id}`),
 };
 
 // ===== Orders API =====
 const OrdersAPI = {
-  createRazorpayOrder: (data) => apiFetch('/api/orders/create-razorpay-order', { method: 'POST', body: JSON.stringify(data) }),
-  verifyPayment: (data) => apiFetch('/api/orders/verify-payment', { method: 'POST', body: JSON.stringify(data) }),
-  list: () => apiFetch('/api/orders/'),
-  get: (id) => apiFetch(`/api/orders/${id}`),
-  cancel: (id) => apiFetch(`/api/orders/${id}/cancel`, { method: 'PUT' }),
+  createRazorpayOrder: (data) => apiFetch('/orders/create-razorpay-order', { method: 'POST', body: JSON.stringify(data) }),
+  verifyPayment: (data) => apiFetch('/orders/verify-payment', { method: 'POST', body: JSON.stringify(data) }),
+  list: () => apiFetch('/orders/'),
+  get: (id) => apiFetch(`/orders/${id}`),
+  cancel: (id) => apiFetch(`/orders/${id}/cancel`, { method: 'PUT' }),
 };
-
-const IMAGE_BASE = "https://solestyle-ecommerce-two.vercel.app";
-
-const imageUrl = `${IMAGE_BASE}${product.images[0]}`;
