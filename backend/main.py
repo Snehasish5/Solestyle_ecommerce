@@ -1,11 +1,3 @@
-import sys
-from pathlib import Path
-
-BACKEND_DIR = Path(__file__).resolve().parent
-
-if str(BACKEND_DIR) not in sys.path:
-    sys.path.insert(0, str(BACKEND_DIR))
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
@@ -34,7 +26,7 @@ app = FastAPI(
 # CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url, "http://localhost:5500", "http://127.0.0.1:5500", "https://solestylee.netlify.app/"],
+    allow_origins=[settings.frontend_url,"https://solestyle-ecommerce-two.vercel.app", "http://localhost:5500", "http://127.0.0.1:5500"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

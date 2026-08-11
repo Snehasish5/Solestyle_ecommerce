@@ -1,8 +1,14 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "builds": [
     {
       "src": "backend/main.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": {
+        "includeFiles": [
+          "backend/**"
+        ]
+      }
     },
     {
       "src": "frontend/**",
@@ -18,5 +24,8 @@
       "src": "/(.*)",
       "dest": "frontend/$1"
     }
-  ]
+  ],
+    "env": {
+      "PYTHONPATH": "backend"
+    }
 }
