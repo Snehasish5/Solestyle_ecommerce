@@ -1,20 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-
-from backend.config import settings
-from backend.database import create_indexes
-from backend.routes import auth, products, cart, wishlist, orders
+from config import settings
+from database import create_indexes
+from routes import auth, products, cart, wishlist, orders
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Startup
     await create_indexes()
-
     print(f"{settings.app_name} API is running!")
-
     yield
-
+    # Shutdown
     print("Shutting down...")
 
 
@@ -25,58 +23,28 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-
+# CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        settings.frontend_url,
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "null"
-    ],
+    allow_origins=[settings.frontend_url, "http://localhost:5500", "http://127.0.0.1:5500", "null"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
-app.include_router(
-    auth.router,
-    prefix="/api"
-)
-
-app.include_router(
-    products.router,
-    prefix="/api"
-)
-
-app.include_router(
-    cart.router,
-    prefix="/api"
-)
-
-app.include_router(
-    wishlist.router,
-    prefix="/api"
-)
-
-app.include_router(
-    orders.router,
-    prefix="/api"
-)
+# Routers
+app.include_router(auth.router)
+app.include_router(products.router)
+app.include_router(cart.router)
+app.include_router(wishlist.router)
+app.include_router(orders.router)
 
 
-@app.get("/api")
+@app.get("/")
 async def root():
-    return {
-        "message": f"Welcome to {settings.app_name} API",
-        "docs": "/api/docs"
-    }
+    return {"message": f"Welcome to {settings.app_name} API", "docs": "/docs"}
 
 
-@app.get("/api/health")
+@app.get("/health")
 async def health():
-    return {
-        "status": "ok",
-        "app": settings.app_name
-    }
+    return {"status": "ok", "app": settings.app_name}

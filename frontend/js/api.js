@@ -1,4 +1,4 @@
-const API_BASE = "/api";
+const API_BASE = "http://127.0.0.1:8000";
 
 /**
  * Core fetch wrapper with auth header injection and error handling.
