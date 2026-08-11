@@ -301,7 +301,7 @@ ul, ol { list-style: none; }
 .form-control {
   width: 100%;
   padding: 0.75rem 1rem;
-  background: rgba(255,255,255,0.05);
+  background: rgba(180, 80, 80, 0.05);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   color: var(--text-primary);
@@ -313,6 +313,7 @@ ul, ol { list-style: none; }
 
 .form-control:focus {
   border-color: var(--accent-primary);
+  color: var(--text-primary);
   background-color: rgba(124, 58, 237, 0.08);
   box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
@@ -321,7 +322,7 @@ ul, ol { list-style: none; }
 
 select.form-control option {
     background-color: var(--bg-card);
-    color: #ffffff;
+    color: rgba(255,255,255,0.05);;
 }
 
 select.form-control {
@@ -331,7 +332,144 @@ select.form-control {
   background-repeat: no-repeat;
   background-position: right 1rem center;
   padding-right: 2.5rem;
-  background-color: rgba(255,255,255,0.05)
+  background-color: rgba(255,255,255,0.05);
+  color: var(--text-primary);
+}
+
+/* ================================
+   FORM GROUP
+================================ */
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+/* ================================
+   FORM LABEL
+================================ */
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* ================================
+   FORM INPUT
+================================ */
+
+.form-control {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.8rem 1rem;
+
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Placeholder */
+
+.form-control::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+/* Focus */
+
+.form-control:focus {
+    border-color: var(--accent-primary);
+    background: rgba(124, 58, 237, 0.08);
+
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+/* Hover */
+
+.form-control:hover {
+    border-color: rgba(124, 58, 237, 0.5);
+}
+
+/* ================================
+   GRID - 3 COLUMNS
+================================ */
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+/* ================================
+   PHONE INPUT
+================================ */
+
+input[type="tel"] {
+    letter-spacing: 0.5px;
+}
+
+/* ================================
+   PINCODE
+================================ */
+
+#pincode {
+    letter-spacing: 1px;
+}
+
+/* ================================
+   REQUIRED FIELD
+================================ */
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+
+    .grid-3 {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-control {
+        padding: 0.75rem 0.9rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ================================
+   SMALL MOBILE
+================================ */
+
+@media (max-width: 480px) {
+
+    .form-label {
+        font-size: 0.8rem;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 0.7rem 0.85rem;
+    }
 }
 
 /* ===== DIVIDER ===== */
@@ -596,7 +734,7 @@ footer {
   margin-bottom: 3rem;
 }
 
-.footer-brand h3 {
+.footer-brand h2 {
   font-family: 'Outfit', sans-serif;
   font-size: 1.75rem;
   font-weight: 900;
