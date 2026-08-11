@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="SoleStyle - Premium shoe store. Shop the latest Nike, Adidas, Converse, Puma and more. Free shipping on orders above ₹999.">
   <title>SoleStyle — Step Into Style</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👟</text></svg>">
+  
   <link rel="stylesheet" href="css/global.css">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/components.css">
@@ -277,13 +277,13 @@
 
     .category-card-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--accent-primary);
     }
 
     .category-card-count {
-      font-size: 0.8rem;
+      font-size: 1rem;
       color: var(--text-muted);
       margin-top: 0.2rem;
     }
@@ -344,7 +344,7 @@
       font-family: 'Outfit', sans-serif;
       font-size: 0.95rem;
       font-weight: 700;
-      color: var(--text-primary);
+      color: var(--accent-primary);
       margin-bottom: 0.4rem;
     }
 
@@ -363,6 +363,18 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+    }
+
+    .newsletter-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 2rem;
+      line-height: 1.2;
+      margin: 0.75rem 0;
+      color: var(--accent-primary);
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
     }
 
     .newsletter::before {
@@ -424,7 +436,6 @@
   <nav class="navbar" id="navbar">
     <div class="container nav-inner">
       <a class="nav-brand">
-        <div class="nav-brand-logo">👟</div>
         <span class="nav-brand-name">SoleStyle</span>
       </a>
 
@@ -490,8 +501,8 @@
             Discover premium footwear from the world's top brands. From athletic performance to everyday street style — find your sole.
           </p>
           <div class="hero-actions">
-            <a href="products.html" class="btn btn-primary btn-lg">Shop Now →</a>
-            <a href="products.html?is_new_arrival=true" class="btn btn-secondary btn-lg">New Arrivals</a>
+            <a href="products.html" class="btn btn-primary btn-lg">Shop Now</a>
+            <a href="products.html?is_new_arrival=true" class="btn btn-primary btn-lg">New Arrivals</a>
           </div>
           <div class="hero-stats">
             <div>
@@ -578,7 +589,7 @@
             </div>
             <div class="category-card-overlay"></div>
             <div class="category-card-content">
-              <div class="category-card-title">Kids'</div>
+              <div class="category-card-title">Kid's</div>
               <div class="category-card-count">Fun & durable</div>
             </div>
             <div class="category-card-arrow">→</div>
@@ -621,7 +632,7 @@
           `).join('')}
         </div>
         <div style="text-align:center;margin-top:2.5rem">
-          <a href="products.html?is_featured=true" class="btn btn-secondary">View All Featured →</a>
+          <a href="products.html?is_featured=true" class="btn btn-primary">View All Featured →</a>
         </div>
       </div>
     </section>
@@ -647,7 +658,7 @@
           `).join('')}
         </div>
         <div style="text-align:center;margin-top:2.5rem">
-          <a href="products.html?is_new_arrival=true" class="btn btn-secondary">View All New Arrivals →</a>
+          <a href="products.html?is_new_arrival=true" class="btn btn-primary">View All New Arrivals →</a>
         </div>
       </div>
     </section>
@@ -685,7 +696,7 @@
       <div class="container">
         <div class="newsletter">
           <div class="section-badge">Exclusive Offers</div>
-          <h2 style="font-family:'Outfit',sans-serif;font-weight:800;margin:0.75rem 0">Stay in the Loop</h2>
+          <h2 class="newsletter-title">Stay in the Loop</h2>
           <p style="color:var(--text-secondary)">Get early access to new drops, exclusive deals and style tips straight to your inbox.</p>
           <form class="newsletter-form" id="newsletter-form">
             <input type="email" class="newsletter-input" placeholder="Enter your email address..." required id="newsletter-email">
@@ -737,8 +748,8 @@
       <div class="footer-bottom">
         <span>© 2026 SoleStyle. All rights reserved.</span>
         <div style="display:flex;gap:1.5rem">
-          <a href="#" style="color:var(--text-muted);font-size:0.8rem">Privacy Policy</a>
-          <a href="#" style="color:var(--text-muted);font-size:0.8rem">Terms of Service</a>
+          <a href="#" style="color:var(--accent-primary);font-size:1rem">Privacy Policy</a>
+          <a href="#" style="color:var(--accent-primary);font-size:1rem">Terms of Service</a>
         </div>
         <span>Made in India</span>
       </div>

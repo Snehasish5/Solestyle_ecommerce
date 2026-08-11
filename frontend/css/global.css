@@ -10,13 +10,13 @@
   --bg-overlay: rgba(8, 8, 15, 0.85);
 
   /* Accent */
-  --accent-primary: #eaea19;
-  --accent-secondary: #fabe0a;
-  --accent-gold: #f59e0b;
-  --accent-gold-light: #fbbf24;
-  --gradient-main: linear-gradient(135deg, #e5e221 0%, #f8c301 50%, #f59e0b 100%);
+  --accent-primary: #ffff00;
+  --accent-secondary: #fff200;
+  --accent-gold: #f5e20b;
+  --accent-gold-light: #ffee05;
+  --gradient-main: linear-gradient(135deg, #fffb00 0%, #b6b300 50%);
   --gradient-card: linear-gradient(145deg, rgba(124,58,237,0.15) 0%, rgba(168,85,247,0.05) 100%);
-  --gradient-btn: linear-gradient(135deg, #ead30a, #8f1dfa);
+  --gradient-btn: linear-gradient(120deg, #ead30a, #938c00);
 
   /* Text */
   --text-primary: #f0f0ff;
@@ -130,7 +130,7 @@ ul, ol { list-style: none; }
   background: rgba(124, 58, 237, 0.15);
   border: 1px solid var(--border-accent);
   border-radius: var(--radius-full);
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--accent-secondary);
   letter-spacing: 1.5px;
@@ -151,7 +151,7 @@ ul, ol { list-style: none; }
 
 .section-subtitle {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 1.1rem;
   max-width: 500px;
   margin: 0 auto;
 }
@@ -609,15 +609,16 @@ footer {
 
 .footer-brand p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 1rem;
   line-height: 1.7;
   max-width: 280px;
+  align-items: justify;
 }
 
 .footer-col h4 {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--accent-primary);
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 1.25rem;
@@ -626,7 +627,7 @@ footer {
 .footer-col ul li { margin-bottom: 0.6rem; }
 .footer-col ul li a {
   color: var(--text-muted);
-  font-size: 0.875rem;
+  font-size: 1rem;
   transition: color var(--transition-fast);
 }
 .footer-col ul li a:hover { color: var(--accent-secondary); }
@@ -637,8 +638,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: var(--text-muted);
-  font-size: 0.8rem;
+  color: var(--accent-primary);
+  font-size: 1rem;
   flex-wrap: wrap;
   gap: 1rem;
 }

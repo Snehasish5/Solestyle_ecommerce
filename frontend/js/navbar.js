@@ -96,7 +96,7 @@ function renderUserNav() {
   } else {
     userArea.innerHTML = `
       <div class="nav-auth-btns">
-        <a href="login.html" class="btn btn-secondary btn-sm">Sign In</a>
+        <a href="login.html" class="btn btn-primary btn-sm">Sign In</a>
         <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
       </div>
     `;
