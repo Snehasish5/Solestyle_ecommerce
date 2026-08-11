@@ -5,10 +5,10 @@ import razorpay
 from fastapi import APIRouter, HTTPException, Depends
 from bson import ObjectId
 from datetime import datetime
-from database import orders_collection, carts_collection, products_collection
-from models.order import CreateRazorpayOrder, VerifyPayment, OrderResponse
-from utils.security import get_current_user
-from config import settings
+from backend.database import orders_collection, carts_collection, products_collection
+from backend.models.order import CreateRazorpayOrder, VerifyPayment, OrderResponse
+from backend.utils.security import get_current_user
+from backend.config import settings
 
 router = APIRouter(prefix="/api/orders", tags=["Orders"])
 

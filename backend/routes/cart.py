@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from bson import ObjectId
-from database import carts_collection, products_collection
-from models.cart import CartItem, CartItemUpdate, CartResponse, CartItemResponse
-from utils.security import get_current_user
+from backend.database import carts_collection, products_collection
+from backend.models.cart import CartItem, CartItemUpdate, CartResponse, CartItemResponse
+from backend.utils.security import get_current_user
 
 router = APIRouter(prefix="/api/cart", tags=["Cart"])
 

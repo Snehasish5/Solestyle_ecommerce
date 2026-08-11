@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException, Depends
 from bson import ObjectId
 from datetime import datetime
-from database import wishlists_collection, products_collection
-from utils.security import get_current_user
+from backend.database import wishlists_collection, products_collection
+from backend.utils.security import get_current_user
 
 router = APIRouter(prefix="/api/wishlist", tags=["Wishlist"])
 
