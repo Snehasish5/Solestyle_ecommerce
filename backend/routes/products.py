@@ -6,7 +6,7 @@ from database import products_collection
 from models.product import ProductCreate, ProductUpdate, ProductResponse, ReviewCreate
 from utils.security import get_current_user
 
-router = APIRouter(prefix="/api/products", tags=["Products"])
+router = APIRouter(prefix="/products", tags=["Products"])
 
 
 def serialize_product(p: dict) -> dict:
