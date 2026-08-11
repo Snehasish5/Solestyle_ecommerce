@@ -258,6 +258,7 @@ SAMPLE_PRODUCTS = [
     },
 ]
 
+
 async def seed_database():
     print("🌱 Starting database seed...")
 
@@ -275,6 +276,7 @@ async def seed_database():
 
     # Create a demo user if not exists
     existing = await users_collection.find_one({"email": "demo@solestyle.com"})
+
     if not existing:
         await users_collection.insert_one({
             "name": "Demo User",
@@ -284,6 +286,7 @@ async def seed_database():
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow(),
         })
+
         print("✅ Demo user created: demo@solestyle.com / demo1234")
 
     print("🎉 Database seeded successfully!")
