@@ -4,8 +4,6 @@ from contextlib import asynccontextmanager
 from config import settings
 from database import create_indexes
 from routes import auth, products, cart, wishlist, orders
-from fastapi.staticfiles import StaticFiles
-import os
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -39,13 +37,6 @@ app.include_router(products.router)
 app.include_router(cart.router)
 app.include_router(wishlist.router)
 app.include_router(orders.router)
-
-app.mount(
-    "/images",
-    StaticFiles(directory="images"),
-    name="images"
-)
-
 
 @app.get("/")
 async def root():
