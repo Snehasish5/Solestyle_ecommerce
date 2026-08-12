@@ -1,4 +1,4 @@
-const API_BASE = "https://solestyle-ecommerce.onrender.com/";
+const API_BASE = "https://solestyle-ecommerce.onrender.com";
 
 /**
  * Core fetch wrapper with auth header injection and error handling.
@@ -41,7 +41,7 @@ async function apiFetch(path, options = {}) {
 // ===== Auth API =====
 const AuthAPI = {
   register: (data) => apiFetch('/api/auth/register', { method: 'POST', body: JSON.stringify(data) }),
-  login: (data) => apiFetch('api/auth/login', { method: 'POST', body: JSON.stringify(data) }),
+  login: (data) => apiFetch('/api/auth/login', { method: 'POST', body: JSON.stringify(data) }),
   me: () => apiFetch('/api/auth/me'),
 };
 
