@@ -257,7 +257,7 @@ SAMPLE_PRODUCTS = [
         "reviews": [],
     },
 
-        {
+    {
         "name": "Nike Dunk Low Retro",
         "brand": "Nike",
         "description": "The Nike Dunk Low Retro brings classic basketball-inspired style to everyday streetwear with a clean low-top silhouette and comfortable cushioning.",
@@ -266,8 +266,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/sneakers?lock=101",
+            "https://loremflickr.com/800/800/sneakers?lock=102"
         ],
         "sizes": ["7", "8", "9", "10", "11"],
         "colors": ["White/Black", "University Blue"],
@@ -287,8 +287,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "sports",
         "images": [
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/sneakers?lock=103",
+            "https://loremflickr.com/800/800/sneakers?lock=104"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black/Red", "White/Black"],
@@ -308,8 +308,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/running-shoes?lock=105",
+            "https://loremflickr.com/800/800/running-shoes?lock=106"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black", "White", "Blue"],
@@ -329,8 +329,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/running-shoes?lock=107",
+            "https://loremflickr.com/800/800/sport-shoes?lock=108"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["White/Pink", "Black/White"],
@@ -350,8 +350,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/sneakers?lock=109",
+            "https://loremflickr.com/800/800/sport-shoes?lock=110"
         ],
         "sizes": ["7", "8", "9", "10", "11"],
         "colors": ["Black/White", "Grey/Red"],
@@ -371,8 +371,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/womens-shoes?lock=111",
+            "https://loremflickr.com/800/800/running-shoes?lock=112"
         ],
         "sizes": ["4", "5", "6", "7", "8"],
         "colors": ["White", "Black", "Pink"],
@@ -392,8 +392,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/sneakers?lock=113",
+            "https://loremflickr.com/800/800/adidas-shoes?lock=114"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["White/Blue", "White/Black"],
@@ -413,8 +413,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/suede-shoes?lock=115",
+            "https://loremflickr.com/800/800/casual-shoes?lock=116"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Green/White", "Pink/White"],
@@ -434,8 +434,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/running-shoes?lock=117",
+            "https://loremflickr.com/800/800/athletic-shoes?lock=118"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Solar Red", "Black/White"],
@@ -455,8 +455,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/classic-sneakers?lock=119",
+            "https://loremflickr.com/800/800/white-sneakers?lock=120"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["White/Black", "White/Red"],
@@ -476,8 +476,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/adidas-sneakers?lock=121",
+            "https://loremflickr.com/800/800/modern-sneakers?lock=122"
         ],
         "sizes": ["7", "8", "9", "10", "11"],
         "colors": ["Core Black", "Cloud White"],
@@ -497,8 +497,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/football-shoes?lock=123",
+            "https://loremflickr.com/800/800/retro-sneakers?lock=124"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["Black/White", "White/Green"],
@@ -518,8 +518,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/chunky-sneakers?lock=125",
+            "https://loremflickr.com/800/800/puma-shoes?lock=126"
         ],
         "sizes": ["7", "8", "9", "10", "11"],
         "colors": ["White/Grey", "Black/Orange"],
@@ -539,8 +539,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/puma-sneakers?lock=127",
+            "https://loremflickr.com/800/800/womens-sneakers?lock=128"
         ],
         "sizes": ["4", "5", "6", "7", "8"],
         "colors": ["White/Pink", "Grey/Blue"],
@@ -560,8 +560,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/puma-running-shoes?lock=129",
+            "https://loremflickr.com/800/800/performance-shoes?lock=130"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black/Yellow", "Blue/White"],
@@ -581,8 +581,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/suede-sneakers?lock=131",
+            "https://loremflickr.com/800/800/puma-casual-shoes?lock=132"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Black/White", "Pink/White"],
@@ -602,8 +602,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/new-balance-running?lock=133",
+            "https://loremflickr.com/800/800/running-shoes?lock=134"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Grey/Blue", "Black/White"],
@@ -623,8 +623,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/new-balance-sneakers?lock=135",
+            "https://loremflickr.com/800/800/retro-running-shoes?lock=136"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Cream/Green", "Grey/White"],
@@ -644,8 +644,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "sports",
         "images": [
-            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/basketball-sneakers?lock=137",
+            "https://loremflickr.com/800/800/new-balance-550?lock=138"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["White/Green", "White/Blue"],
@@ -665,8 +665,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/futuristic-sneakers?lock=139",
+            "https://loremflickr.com/800/800/chunky-shoes?lock=140"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Sea Salt", "Grey/Pink"],
@@ -686,8 +686,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/asics-running-shoes?lock=141",
+            "https://loremflickr.com/800/800/stability-running-shoes?lock=142"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black/Blue", "White/Red"],
@@ -707,8 +707,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/asics-shoes?lock=143",
+            "https://loremflickr.com/800/800/womens-running-shoes?lock=144"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Pink/White", "Black/Purple"],
@@ -728,8 +728,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/asics-sneakers?lock=145",
+            "https://loremflickr.com/800/800/retro-shoes?lock=146"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["Cream/Green", "Black/Grey"],
@@ -749,8 +749,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/converse-shoes?lock=147",
+            "https://loremflickr.com/800/800/high-top-sneakers?lock=148"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["Black", "Parchment", "White"],
@@ -770,8 +770,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/platform-sneakers?lock=149",
+            "https://loremflickr.com/800/800/womens-platform-shoes?lock=150"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Black/White", "White/Black"],
@@ -791,8 +791,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/vans-shoes?lock=151",
+            "https://loremflickr.com/800/800/platform-shoes?lock=152"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Black/White", "White"],
@@ -812,8 +812,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "sports",
         "images": [
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/vans-skate-shoes?lock=153",
+            "https://loremflickr.com/800/800/high-top-skate-shoes?lock=154"
         ],
         "sizes": ["7", "8", "9", "10", "11"],
         "colors": ["Black/White", "Navy/White"],
@@ -833,8 +833,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/fila-shoes?lock=155",
+            "https://loremflickr.com/800/800/basketball-shoes?lock=156"
         ],
         "sizes": ["7", "8", "9", "10", "11"],
         "colors": ["White/Navy", "White/Red"],
@@ -854,8 +854,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/fila-sneakers?lock=157",
+            "https://loremflickr.com/800/800/chunky-platform-shoes?lock=158"
         ],
         "sizes": ["4", "5", "6", "7", "8"],
         "colors": ["White", "White/Pink"],
@@ -875,8 +875,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/fila-court-shoes?lock=159",
+            "https://loremflickr.com/800/800/low-top-sneakers?lock=160"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10"],
         "colors": ["White", "Black/White"],
@@ -896,8 +896,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/on-running-shoes?lock=161",
+            "https://loremflickr.com/800/800/urban-running-shoes?lock=162"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black", "White/Blue"],
@@ -917,8 +917,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/on-cloud-shoes?lock=163",
+            "https://loremflickr.com/800/800/womens-training-shoes?lock=164"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["White", "All Black"],
@@ -938,8 +938,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/nike-court-shoes?lock=165",
+            "https://loremflickr.com/800/800/low-top-court-shoes?lock=166"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["White/Black", "White/Blue"],
@@ -959,8 +959,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/nike-high-top-shoes?lock=167",
+            "https://loremflickr.com/800/800/vintage-basketball-shoes?lock=168"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["White/Black", "White/Red"],
@@ -980,8 +980,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/nike-running-shoes?lock=169",
+            "https://loremflickr.com/800/800/performance-running-shoes?lock=170"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black/White", "Blue/Green"],
@@ -1001,8 +1001,8 @@ SAMPLE_PRODUCTS = [
         "category": "men",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/adidas-running-shoes?lock=171",
+            "https://loremflickr.com/800/800/long-distance-running-shoes?lock=172"
         ],
         "sizes": ["7", "8", "9", "10", "11", "12"],
         "colors": ["Black/White", "Grey/Blue"],
@@ -1022,8 +1022,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "sports",
         "images": [
-            "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/on-sports-shoes?lock=173",
+            "https://loremflickr.com/800/800/urban-sneakers?lock=174"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["White/Black", "Black/White"],
@@ -1043,8 +1043,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "casual",
         "images": [
-            "https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/new-balance-574?lock=175",
+            "https://loremflickr.com/800/800/retro-sneakers?lock=176"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["Grey", "Navy", "Black"],
@@ -1064,8 +1064,8 @@ SAMPLE_PRODUCTS = [
         "category": "women",
         "sub_category": "running",
         "images": [
-            "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/asics-running?lock=177",
+            "https://loremflickr.com/800/800/womens-running?lock=178"
         ],
         "sizes": ["4", "5", "6", "7", "8", "9"],
         "colors": ["Black/Pink", "White/Blue"],
@@ -1085,8 +1085,8 @@ SAMPLE_PRODUCTS = [
         "category": "unisex",
         "sub_category": "sports",
         "images": [
-            "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&q=80"
+            "https://loremflickr.com/800/800/vans-era-shoes?lock=179",
+            "https://loremflickr.com/800/800/skate-sneakers?lock=180"
         ],
         "sizes": ["5", "6", "7", "8", "9", "10", "11"],
         "colors": ["Black/White", "Red/White"],
