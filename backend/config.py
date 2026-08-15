@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     app_name: str = "SoleStyle"
 
-    frontend_url: str = "https://solestylee.netlify.app/"
+    frontend_url: str = "https://solestylee.netlify.app"
 
     model_config = SettingsConfigDict(
         env_file=".env",
