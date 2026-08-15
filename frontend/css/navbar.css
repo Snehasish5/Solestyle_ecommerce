@@ -328,7 +328,7 @@
   .nav-search { max-width: 280px; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .nav-search { display: none; }
   .nav-hamburger { display: flex; }
   .nav-auth-btns .btn-secondary { display: none; }

@@ -439,7 +439,7 @@ input[type="tel"] {
    MOBILE RESPONSIVE
 ================================ */
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
     .grid-3 {
         grid-template-columns: 1fr;
@@ -795,7 +795,7 @@ footer {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .grid-2, .grid-3 { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; text-align: center; }

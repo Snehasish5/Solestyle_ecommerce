@@ -590,7 +590,7 @@
 
 .info-pill .icon { color: var(--accent-secondary); }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
