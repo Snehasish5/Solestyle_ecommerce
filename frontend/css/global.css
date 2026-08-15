@@ -14,9 +14,9 @@
   --accent-secondary: #fff200;
   --accent-gold: #f5e20b;
   --accent-gold-light: #ffee05;
-  --gradient-main: linear-gradient(135deg, #fffb00 0%, #b6b300 50%);
+  --gradient-main: linear-gradient(135deg, #fffb00 0%, #fffb00 50%);
   --gradient-card: linear-gradient(145deg, rgba(124,58,237,0.15) 0%, rgba(168,85,247,0.05) 100%);
-  --gradient-btn: linear-gradient(120deg, #ead30a, #938c00);
+  --gradient-btn: linear-gradient(120deg, #b5a300, #b5a300);
 
   /* Text */
   --text-primary: #f0f0ff;

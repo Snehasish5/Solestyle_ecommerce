@@ -40,15 +40,17 @@
     </div>
 
     <div class="wishlist-grid" id="wishlist-grid">
-      ${Array(4).fill(0).map(() => `
-        <div class="product-card">
-          <div class="skeleton" style="aspect-ratio:1;border-radius:var(--radius-xl) var(--radius-xl) 0 0"></div>
-          <div style="padding:1.25rem">
-            <div class="skeleton" style="height:14px;width:60%;margin-bottom:.5rem"></div>
-            <div class="skeleton" style="height:18px;width:80%"></div>
-          </div>
+      <!-- Skeleton 1 -->
+      <div class="product-card">
+        <div class="skeleton"
+            style="aspect-ratio:1;border-radius:var(--radius-xl) var(--radius-xl) 0 0">
         </div>
-      `).join('')}
+
+        <div style="padding:1.25rem">
+          <div class="skeleton" style="height:14px;width:60%;margin-bottom:.5rem"></div>
+          <div class="skeleton" style="height:18px;width:80%"></div>
+        </div>
+      </div>
     </div>
   </div>
 
