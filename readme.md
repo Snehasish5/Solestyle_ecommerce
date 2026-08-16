@@ -140,13 +140,6 @@ Contributions welcome. Open issues or PRs with focused changes. Keep changes sma
 
 ## License
 
-This repository does not include an explicit license file. Add a LICENSE file if you intend to publish with a specific license.
+This repository does not include an explicit license file.
 
 
-## Contact / Authors
-
-Project: SoleStyle (example/sample project)
-
----
-
-Generated README based on the repository files found in this workspace. Update any environment values, deployment instructions, or payment integration details before deploying to production.
