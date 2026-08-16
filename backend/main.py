@@ -43,6 +43,6 @@ async def root():
     return {"message": f"Welcome to {settings.app_name} API", "docs": "/docs"}
 
 
-@app.get("/api/health")
+@app.get("/health")
 async def health():
     return {"status": "ok", "app": settings.app_name}
